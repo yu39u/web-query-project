@@ -1,0 +1,61 @@
+type User {
+  id: Int
+  email: String
+  name: String
+  password: String
+}
+type Sentence {
+  id: String!
+  tagId: String!
+  sentenceName: String
+}
+type TPScore {
+  accuracy: Int
+  wpm: Int
+}
+type Tag {
+  id: String
+  tagName: String
+}
+type LoginPayload {
+  name: String
+  sessionId: String
+  logined: Boolean!
+}
+type SigninPayload {
+  name: String
+  sessionId: String
+  signined: Boolean!
+}
+type Query {
+  hello: String
+  getUsers: [User!]!
+  getUser(email: String): User
+  getTPScore: TPScore!
+  getSentences: [Sentence!]!
+  getTags: [Tag]!
+}
+type Result {
+  result: Boolean!
+}
+type Mutation {
+  loginUser(email: String, password: String): LoginPayload!
+  signinUser(email: String!, password: String!, name: String!): SigninPayload!
+  createScript(
+    title: String!
+    scripts: [String!]!
+    lang: String!
+    tagName: String!
+    tagId: String
+  ): Sentence!
+  modifyScript(
+    sentenceId: String!
+    title: String!
+    scripts: [String!]!
+    lang: String!
+    tagName: String!
+    tagId: String
+  ): Sentence!
+  deleteScript(id: String!): Sentence
+  postScore(id: String!, typo: [String!]!, time: Int): Result!
+}
