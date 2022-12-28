@@ -14,11 +14,11 @@ console.log(__dirname)
 console.log("ok");
 
 const schemas: GraphQLSchema[] = [];
-const folders = fs.readdirSync("modules");
+const folders = fs.readdirSync("src/graphql/modules");
 folders.forEach(folder => {
-	const { resolvers } = require(`modules/${folder}/resolver`);
+	const { resolvers } = require(`src/graphql/modules/${folder}/resolver`);
 	const typeDef = loadSchemaSync(
-		`modules/${folder}/schema.graphql`,
+		`src/graphql/modules/${folder}/schema.graphql`,
 		{
 			loaders: [new GraphQLFileLoader()],
 		});

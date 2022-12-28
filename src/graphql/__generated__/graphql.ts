@@ -129,13 +129,10 @@ export type User = {
   password?: Maybe<Scalars['String']>;
 };
 
-export type TestMutationVariables = Exact<{
-  email: Scalars['String'];
-  password: Scalars['String'];
-}>;
+export type TestQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type TestMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'LoginPayload', sessionId?: string | null, name?: string | null, logined: boolean } };
+export type TestQuery = { __typename?: 'Query', getTPScore: { __typename?: 'TPScore', accuracy?: number | null, wpm?: number | null } };
 
 
-export const TestDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"test"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"password"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loginUser"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"Argument","name":{"kind":"Name","value":"password"},"value":{"kind":"Variable","name":{"kind":"Name","value":"password"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sessionId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"logined"}}]}}]}}]} as unknown as DocumentNode<TestMutation, TestMutationVariables>;
+export const TestDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"test"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getTPScore"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accuracy"}},{"kind":"Field","name":{"kind":"Name","value":"wpm"}}]}}]}}]} as unknown as DocumentNode<TestQuery, TestQueryVariables>;

@@ -5,11 +5,10 @@ import { useQuery, gql as g } from "@apollo/client";
 import { graphql } from "@generated/gql";
 
 const LOGIN = graphql(`
-  mutation test($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      sessionId
-      name
-      logined
+  query test {
+    getTPScore {
+      accuracy
+      wpm
     }
   }
 `);
@@ -20,6 +19,6 @@ export default function hoge() {
   if (error) return <p>Error : {error.message}</p>;
   console.log(data);
   return (
-    <div className="underline underline-offset-8 bg-red-300, mr-auto">hoge</div>
+    <div className="underline underline-offset-8 mr-auto bg-white">hoge</div>
   );
 }
