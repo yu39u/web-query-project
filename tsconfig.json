@@ -17,7 +17,8 @@
     "downlevelIteration": true,
     "baseUrl": ".", // this must be specified if "paths" is specified.
     "paths": {
-      "@generated/*": ["src/graphql/__generated__/*"] // this mapping is relative to "baseUrl"
+      "@generated/*": ["src/graphql/__genaerated__/*"], // this mapping is relative to "baseUrl"
+      "@components/*": ["src/components/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

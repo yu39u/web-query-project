@@ -7,9 +7,10 @@ import { useSession } from "next-auth/react";
 
 const LOGIN = graphql(`
   query test {
-    getTPScore {
-      accuracy
-      wpm
+    getUsers {
+      id
+      name
+      email
     }
   }
 `);

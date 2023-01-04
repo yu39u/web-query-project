@@ -1,11 +1,64 @@
-import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React, {
+  FormEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from "react";
+import Link from "next/link";
+import { useMutation } from "@apollo/client";
+import { signIn, signOut } from "next-auth/react";
 
-export default function Component() {
-  const { data: session, status } = useSession();
+const login: React.VFC = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
-  if (status === "authenticated") {
-    return <p>Signed in as {session.user.email}</p>;
-  }
+  const onclick: MouseEventHandler<HTMLButtonElement> = (e): void => {
+    e.preventDefault();
+    //メールかパスワードが空の時
+    if (!email || !password) {
+      //todo ポップアップを表示
+      return;
+    }
 
-  return <a href="/api/auth/signin">Sign in</a>;
-}
+    signIn("credentials", {
+      username: email,
+      password: password,
+      redirect: false,
+    });
+  };
+
+  return (
+    <div className="bg-center">
+      <label>email</label>
+      <input
+        data-testid="email"
+        onChange={(e) => setEmail(e.target.value)}
+      ></input>
+      <br />
+      <label>password</label>
+      <input
+        data-testid="password"
+        onChange={(e) => setPassword(e.target.value)}
+      ></input>
+      <br />
+      <button data-testid="login" onClick={onclick}>
+        login
+      </button>
+      <button data-testid="login" onClick={() => signOut()}>
+        signout
+      </button>
+      <br />
+
+      <Link href="/signin">
+        <button>Signin?</button>
+      </Link>
+      <Link href="/">
+        <button>Home</button>
+      </Link>
+    </div>
+  );
+};
+
+export default login;

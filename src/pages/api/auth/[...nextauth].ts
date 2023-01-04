@@ -1,8 +1,9 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "@components/db";
 
-export const authOptions = {
+export default NextAuth({
   // Configure one or more authentication providers
   providers: [
     // GithubProvider({
@@ -22,11 +23,17 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        const user = await prisma.user.findUnique({
+          where: {
+            username: credentials?.username,
+          },
+        });
 
-        if (user) {
+        if (user && user.password === credentials?.password) {
           // Any object returned will be saved in `user` property of the JWT
-          return user;
+          return {
+            id: user.username,
+          };
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
           return null;
@@ -36,6 +43,27 @@ export const authOptions = {
       },
     }),
   ],
-};
+  callbacks: {
+    jwt: ({ token, user }) => {
+      console.log({ token })
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    session: ({ session, token }) => {
 
-export default NextAuth(authOptions);
+      console.log({ session, token })
+      if (token) {
+        session.id = token.id
+      }
+      console.log({ session, token })
+
+      return session;
+    },
+  },
+  secret: "test",
+  jwt: {
+    secret: "test",
+  },
+});

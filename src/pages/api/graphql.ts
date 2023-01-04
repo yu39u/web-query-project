@@ -9,6 +9,8 @@ import { GraphQLSchema } from "graphql";
 import { stitchSchemas } from "@graphql-tools/stitch";
 import { shouldCanonizeResults } from "@apollo/client/cache/inmemory/helpers";
 import { getSession, getCsrfToken } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
+import { log } from "console";
 
 console.log("ok");
 console.log(__dirname)
@@ -45,6 +47,10 @@ const server = new ApolloServer({
 
 const context = async (req, res) => {
 	const csrfToken = await getCsrfToken({ req })
+	const token = await getToken({ req, secret: "secret" })
+	console.log('hello')
+	console.log(token)
+	console.log('ok')
 	return csrfToken
 }
 export default startServerAndCreateNextHandler(server, {

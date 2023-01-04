@@ -13,13 +13,18 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel-plugin for production.
  */
 const documents = {
-    "\n  query test {\n    getTPScore {\n      accuracy\n      wpm\n    }\n  }\n": types.TestDocument,
+    "\n  query test {\n    getUsers {\n      id\n      name\n      email\n    }\n  }\n": types.TestDocument,
+    "\n  mutation sigin($email: String!, $password: String!, $name: String!) {\n    signinUser(email: $email, password: $password, name: $name) {\n      sessionId\n      name\n      signined\n    }\n  }\n": types.SiginDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query test {\n    getTPScore {\n      accuracy\n      wpm\n    }\n  }\n"): (typeof documents)["\n  query test {\n    getTPScore {\n      accuracy\n      wpm\n    }\n  }\n"];
+export function graphql(source: "\n  query test {\n    getUsers {\n      id\n      name\n      email\n    }\n  }\n"): (typeof documents)["\n  query test {\n    getUsers {\n      id\n      name\n      email\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation sigin($email: String!, $password: String!, $name: String!) {\n    signinUser(email: $email, password: $password, name: $name) {\n      sessionId\n      name\n      signined\n    }\n  }\n"): (typeof documents)["\n  mutation sigin($email: String!, $password: String!, $name: String!) {\n    signinUser(email: $email, password: $password, name: $name) {\n      sessionId\n      name\n      signined\n    }\n  }\n"];
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
