@@ -1,7 +1,8 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@components/db";
+import { JWT } from "next-auth/jwt";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -32,7 +33,7 @@ export default NextAuth({
         if (user && user.password === credentials?.password) {
           // Any object returned will be saved in `user` property of the JWT
           return {
-            id: user.username,
+            id: user?.username,
           };
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -47,23 +48,22 @@ export default NextAuth({
     jwt: ({ token, user }) => {
       console.log({ token })
       if (user) {
-        token.id = user.id;
+        token.username = user.id;
       }
       return token;
     },
     session: ({ session, token }) => {
-
       console.log({ session, token })
       if (token) {
-        session.id = token.id
+        session.username = token.username
       }
       console.log({ session, token })
 
       return session;
     },
   },
-  secret: "test",
+  secret: "secret",
   jwt: {
-    secret: "test",
+    secret: "secret",
   },
 });

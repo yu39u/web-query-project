@@ -25,13 +25,13 @@ const login: React.VFC = () => {
     signIn("credentials", {
       username: email,
       password: password,
-      redirect: false,
+      callbackUrl: "/hoge",
     });
   };
 
   return (
-    <div className="bg-center">
-      <label>email</label>
+    <div className="flex min-h-full items-center justify-center">
+      <label className="bg-red-500 text-2xl">email</label>
       <input
         data-testid="email"
         onChange={(e) => setEmail(e.target.value)}
